@@ -1,5 +1,7 @@
 package kawinpart.sorasak.bicbook;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void clickSignUpSign(View view) {
 
         idCardString = idCardEditText.getText().toString().trim();
-        passwordString = idCardEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
 
         //Check Space
         if (idCardString.equals("") || passwordString.equals("")) {
@@ -61,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (idCardString.length() == 13) {
             //id card True
 
-
+            confirmData(idCardString, passwordString);
 
         } else {
             //id card False
@@ -69,6 +71,34 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
     } //checkIdCard
+
+    private void confirmData(String idCardString, String passwordString) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.icon_myaccount);
+        builder.setTitle("โปรดตรวจสอบข้อมูล");
+        builder.setMessage("รหัสบัตรประชาชน = " + idCardString + "\n" +
+                "Password = " + passwordString);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateDataToServer();
+            } // onClick
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            } // onclick
+        });
+        builder.show();
+
+    }// confirmData
+
+    private void updateDataToServer() {
+
+    } // updateDataToServer
 
     private void myToast(String strToast) {
         Toast.makeText(SignUpActivity.this, strToast, Toast.LENGTH_SHORT).show();
