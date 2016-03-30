@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
             // กรอก id card ไม่เท่ากัน 13 หลัก
             myAlert("กรอก id card ไม่เท่ากัน 13 หลัก");
 
+
         }
 
     } // clickSingInMain
